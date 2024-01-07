@@ -43,7 +43,7 @@ names(Dataset) <- gsub("^tBody", "TimeBody", names(Dataset))
 names(Dataset) <- gsub("^tGravity", "TimeGravity", names(Dataset))
 names(Dataset) <- gsub("^(fBody|fBodyBody)", "FreqBody", names(Dataset))
 names(Dataset) <- gsub("Acc", "Acceleration", names(Dataset))
-names(Dataset) <- gsub("\\.mean\\.\\.\\.|\\.mean\\.\\.)", "_Mean", names(Dataset))
+names(Dataset) <- gsub("\\.mean\\.\\.\\.|\\.mean\\.\\.", "_Mean", names(Dataset))
 names(Dataset) <- gsub("\\.std\\.\\.\\.|\\.std\\.\\.", "_STD", names(Dataset))
 
 ## Step 5: Create independent data set with the average of each variable for
@@ -53,3 +53,7 @@ library(dplyr)
 SummaryData <- Dataset %>%
         group_by(subject, activity) %>%
         summarize_all(mean)
+
+## Writing a text file from the previous data set created
+
+write.table(SummaryData, "Step5.txt", row.names = FALSE)
